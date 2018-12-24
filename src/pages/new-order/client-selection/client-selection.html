@@ -1,0 +1,35 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Husky Mobile</ion-title>
+		<ion-buttons end>
+			<button 
+				class="next-step" 
+				[disabled]="!order.client"
+				(click)="nextStep()">
+				<ion-icon name="ios-arrow-forward"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-refresher (ionRefresh)="syncClients($event)">
+		<ion-refresher-content
+			pullingIcon="arrow-dropdown"
+			pullingText="Deslice hacia abajo para sincronizar."
+			refreshingSpinner="circles"
+			refreshingText="Sincronizando...">
+		</ion-refresher-content>
+	</ion-refresher>
+
+	<ion-toolbar color="light">
+		<ion-title>Seleccione un cliente</ion-title> 
+	</ion-toolbar>
+
+	<list-items
+		[itemsList]="clientList" 
+		(onSearch)="searchClients($event)"
+		[selectedItem]="order.client && order.client.CODCLI" 
+		(onItemSelected)="order.client = $event">
+	</list-items>   
+</ion-content>

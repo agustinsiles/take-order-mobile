@@ -1,0 +1,170 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Husky Mobile</ion-title>
+	</ion-navbar>
+</ion-header>
+	
+<ion-content>
+	<ion-toolbar color="light"> 
+		<ion-title>#{{ client.CODCLI }} - {{ client.NOMCLI }}</ion-title>
+	</ion-toolbar>
+	<ion-grid>
+		<ion-row class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-locate"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p class="client-location" *ngIf="client.DOMCLI">{{ client.DOMCLI }}</p>
+				<p class="client-location" *ngIf="client.LOCCLI">{{ client.LOCCLI }}</p>
+				<p class="client-location" *ngIf="client.PROVCLI">{{ client.PROVCLI }}</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row
+			*ngIf="client.TELCLI_1 || client.TELCLI_2" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-call"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p class="items-list"><b>Telefonos:</b></p>
+				<ol>
+					<li *ngIf="client.TELCLI_1">{{ client.TELCLI_1 }}</li>
+					<li *ngIf="client.TELCLI_2">{{ client.TELCLI_2 }}</li>
+				</ol>
+			</ion-col>
+		</ion-row>
+
+		<ion-row
+			*ngIf="client.E_MAIL" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-at"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><a href="mailto:{{client.email}}">{{ client.E_MAIL }}</a></p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row
+			*ngIf="client.CONTACTO" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-contact"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>Contacto:</b> {{ client.CONTACTO }}</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-pricetag"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>Asignacion de lista de precio:</b> {{ client.LISTAPRE }}</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row
+			*ngIf="client.DESCUENTO" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-pricetags"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>Descuento:</b> {{ client.DESCUENTO }}%</p>
+			</ion-col>
+		</ion-row>
+		
+		<ion-row
+			*ngIf="client.CALIFIC" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-star"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>Calificacion:</b> {{ client.CALIFIC }}</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row
+			*ngIf="client.CCOND" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="list-box"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>Condicion:</b> {{client.CCOND === 0 ? 'Contado' : 'Cuenta corriente'}}.</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row
+			*ngIf="client.CUITCLI" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-barcode"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>CUIT:</b> {{ client.CUITCLI }}</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row
+			*ngIf="client.SALDO" 
+			class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="md-calculator"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>Saldo:</b> {{ client.SALDO }}</p>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-toolbar color="light"> 
+		<ion-title *ngIf="client.receipts.length">Facturas pendientes</ion-title>
+		<ion-title *ngIf="!client.receipts.length">No hay facturas pendientes</ion-title>
+	</ion-toolbar>
+
+	<ion-card *ngFor="let receipt of client.receipts;">
+		<ion-toolbar 
+			class="header" 
+			color="{{ receipt.balance < 0 ? 'danger' : 'light' }}">
+			<ion-title>{{ receipt.TCOMP }}</ion-title>
+		</ion-toolbar>
+		<ion-card-content>
+			<p><b>Movimiento:</b> {{ receipt.FMOV }}</p>
+			<p><b>Vencimiento:</b> {{ receipt.FECVTO }}</p>
+			<p><b>Total:</b> ${{ receipt.TOTAL }}</p>
+			<p text-right>Saldo: <b>${{ receipt.SALDO }}.-</b></p>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-toolbar
+		ng-if="client.receipts.length > 0"
+		class="header"
+		color="{{ totalBalance >= 0 ? 'secondary' : 'danger' }}">
+		<ion-title>Saldo deudor: ${{ totalBalance }}.-</ion-title>
+	</ion-toolbar>
+</ion-content>

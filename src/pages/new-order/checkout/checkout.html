@@ -1,0 +1,70 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Husky Mobile - Resumen</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar color="light">
+		<ion-title>{{ order.client.NOMCLI }}</ion-title> 
+	</ion-toolbar>
+	<ion-item>
+		<ion-label>Seleccione fecha de entrega</ion-label>
+		<ion-datetime
+			monthShortNames="[Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]"
+			min="{{ order.FMOV }}"
+			max="2025-12-31"
+			doneText="Listo"
+			cancelText="Cancelar"
+			displayFormat="DD/MMM/YYYY" 
+			[(ngModel)]="order.FENTREGA">
+		</ion-datetime>
+	</ion-item>
+	<table>
+		<thead>
+			<tr>
+				<th>Cant.</th>
+				<th>Articulo</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let product of order.products; let i = index; trackBy: trackByFn;">
+				<td>{{ product.CANT_PED }}</td>
+				<td>{{ product.DESART }}</td>
+				<td>${{ getProductPrice(product) }}.-</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr><td colspan="3" class="cart-total">Total: {{ order.TOTAL | currency:'USD':true:'1.2-2' }}.-</td></tr>
+		</tfoot>
+	</table>
+
+	<ion-list>
+		<ion-item>
+			<ion-label stacked>Observaciones</ion-label>
+			<ion-textarea 
+				[(ngModel)]="order.OBSER" 
+				placeholder="Descripción opcional del pedido"
+				maxlength="180">
+			</ion-textarea>
+		</ion-item>
+	</ion-list>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<button 
+			ion-button 
+			full 
+			color="secondary"
+			(click)="submit()">¡Agregar pedido!
+		</button>
+		<button 
+			ion-button 
+			full 
+			color="danger"
+			(click)="cancel()">Cancelar
+		</button>
+  	</ion-toolbar>
+</ion-footer>

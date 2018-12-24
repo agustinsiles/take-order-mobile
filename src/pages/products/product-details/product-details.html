@@ -1,0 +1,81 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Husky Mobile</ion-title>
+	</ion-navbar>
+</ion-header>
+	
+<ion-content>
+	<ion-toolbar color="light"> 
+		<ion-title>#{{ product.CODART }} - {{ product.DESART }}</ion-title>
+	</ion-toolbar>
+	<ion-grid>
+		<ion-row class="row-container">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="list-box"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p><b>Categoria:</b> {{ product.FAMILIA }}.</p>
+				<p *ngIf="product.subcategory"><b>Subcategoria:</b> {{ product.NSUBF }}.</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="row-container">
+			<ion-col 
+				width-20         
+				class="icon-container">
+				<ion-icon name="pricetags"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p class="pricing-list">Lista de precios:</p>
+				<ol>
+					<li *ngIf="product.PVENTA_1">{{ product.PVENTA_1 | currency:'USD':true:'1.2-2' }}</li>
+					<li *ngIf="product.PVENTA_2">{{ product.PVENTA_2 | currency:'USD':true:'1.2-2' }}</li>
+					<li *ngIf="product.PVENTA_3">{{ product.PVENTA_3 | currency:'USD':true:'1.2-2' }}</li>
+					<li *ngIf="product.PVENTA_4">{{ product.PVENTA_4 | currency:'USD':true:'1.2-2' }}</li>
+				</ol>
+			</ion-col>
+		</ion-row>
+
+		<ion-row 
+			*ngIf="product.EN_DOLARES > 0"
+			class="row-container">
+			<ion-col 
+				width-20         
+				class="icon-container">
+				<ion-icon name="pricetags"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p class="pricing-list">Precio en dolares: {{ product.EN_DOLARES }}</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row 
+			class="row-container"
+			*ngIf="product.STOCK || product.UNIDAD">
+			<ion-col 
+				width-20  
+				class="icon-container">
+				<ion-icon name="list-box"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p *ngIf="product.UNIDAD">Unidad de medida: <b>{{ product.UNIDAD }}</b>. </p>
+				<p *ngIf="product.STOCK">El último stock informado es de <b>{{ product.STOCK }}</b> unidades.</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row 
+			*ngIf="product.ULT_PRC"
+			class="row-container">
+			<ion-col 
+				width-20          
+				class="icon-container">
+				<ion-icon name="calendar"></ion-icon>
+			</ion-col>
+			<ion-col width-80>
+				<p>Último cambio de precio: <b>{{ product.ULT_PRC }}</b>.</p>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

@@ -1,0 +1,21 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Husky Mobile</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-refresher (ionRefresh)="syncProducts($event)">
+		<ion-refresher-content
+			pullingIcon="arrow-dropdown"
+			pullingText="Deslice hacia abajo para sincronizar."
+			refreshingSpinner="circles"
+			refreshingText="Sincronizando productos...">
+		</ion-refresher-content>
+	</ion-refresher>
+	<list-items 
+		[itemsList]="productsList"
+		(onSearch)="searchProducts($event)"
+		(onItemSelected)="productDetails($event)">
+	</list-items>   
+</ion-content>

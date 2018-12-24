@@ -1,0 +1,31 @@
+ion-grid {
+	padding: 0;
+
+	.row-container {
+		border-top: 1px solid #FFFFFF;
+
+		a {
+			text-decoration: none;
+		}
+		
+		.icon-container {
+			text-align: center;
+			background-color: #387ef5;
+			
+			ion-icon {
+				color: #FFFFFF;
+				font-size: 30px;
+				padding: 15px;
+			}
+		}
+
+		p {
+			padding: 15px;
+
+			&.client-location,
+			&.items-list {
+				padding: 0 15px;
+			}
+		}
+	}
+}

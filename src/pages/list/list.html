@@ -1,0 +1,34 @@
+<ion-searchbar 
+	[(ngModel)]="searchTerm"
+	(keyup)="searchItem($event)"
+	placeholder="Filtrar por nombre o código">
+</ion-searchbar>
+<ion-toolbar 
+	color="light" 
+	[hidden]="((itemsList && !!itemsList.length) || (dataLength && !searchTerm))">
+	<ion-title [hidden]="dataLength">Deslice hacia abajo para sincronizar datos.</ion-title> 
+	<ion-title [hidden]="!(dataLength && !itemsList.length && !!searchTerm)">
+		No hay resultados para <i>{{ searchTerm }}</i>
+	</ion-title>
+</ion-toolbar>
+
+<ion-list no-lines *ngIf="itemsList">
+	<button 
+		class="list-item"
+		ion-item 
+		*ngFor="let item of itemsList.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage))"
+		(click)="onClicked(item)" 
+		[ngClass]="{ 'selected-item': isSelected(item) }">{{ item.DESART || item.NOMCLI }}
+	</button>
+</ion-list>
+
+<div class="text-center" [hidden]="!itemsList || !itemsList.length">
+    <ul class="pagination text-center">
+		<li
+			(click)="setPage(i + 1)"
+            [ngClass]="{ active: currentPage === i + 1 }"
+            *ngFor="let i of pageQuantity;">
+            {{ i + 1 }}
+        </li>
+    </ul>
+</div>

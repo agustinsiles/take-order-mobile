@@ -1,0 +1,39 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>{{ product.DESART }}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="modal-content">
+	<ion-toolbar color="light">
+		<ion-title>Precio unitario: ${{ price }}.-</ion-title> 
+	</ion-toolbar>
+	<div class="add-inputs-container">
+		<ion-item>
+			<ion-label>Cantidad:</ion-label>
+			<ion-input
+				min="0.1"
+				type="number" 
+				[(ngModel)]="product.CANT_PED"
+				[ngModelOptions]="{ standalone: true }"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Total: $</ion-label>
+			<ion-input 
+				type="number"
+				[disabled]="true"
+				[value]="total"></ion-input>
+		</ion-item>
+		<button
+			[disabled]="product.CANT_PED <= 0"
+			ion-button 
+			full 
+			color="secondary" 
+			(click)="close(true)">Agregar</button>
+		<button 
+			ion-button 
+			full 
+			color="primary" 
+			(click)="close(false)">Cancelar</button>
+	</div>
+</ion-content>

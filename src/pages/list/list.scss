@@ -1,0 +1,25 @@
+.list-item {
+    border-bottom: 1px solid #DEDEDE!important;
+}
+
+.selected-item {
+    background-color: #387ef5;
+    color: #FFFFFF;
+}
+
+.pagination {
+    text-align: center;
+
+    li {
+        background: #498aff;
+        color: #FFFFFF!important;
+        display: inline-block;
+        text-align: center;
+        padding: 20px 0;
+        width: 50px;
+
+        &.active {
+            background: #32db64;
+        }
+    }
+}

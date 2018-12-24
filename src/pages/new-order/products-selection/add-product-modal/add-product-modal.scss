@@ -1,0 +1,23 @@
+ion-backdrop {
+    opacity: 0.5;
+}
+.popover-content {
+    top: 56px!important;
+    left: 2%!important;
+    width: 96%!important;
+}
+
+.modal-content {
+    .scroll-content {
+        margin-top: 56px!important;
+        overflow-y: hidden;
+    }
+
+    .add-inputs-container {
+        padding: 15px;
+
+        ion-item {
+            margin-bottom: 35px;
+        }
+    }
+}

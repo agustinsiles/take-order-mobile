@@ -1,0 +1,37 @@
+.main-options {
+	margin: 0;
+	width: 100%;
+	box-shadow: none;
+}
+
+.order-card {
+	margin: 30px auto!important;
+	width: 90%;
+
+	.header { 
+		.toolbar-title-md {
+			font-size: 16px;
+		}
+	}
+
+	.order-actions {
+		width: 33%;
+	}
+}
+
+.new-order-container {
+	margin-top: 50px;
+	
+	ion-card-content {
+		background-color: #F4F4F4;
+		font-family: "Roboto", "Helvetica Neue", sans-serif;
+		text-align: center;
+		
+		.add-order {
+			ion-icon {
+				color: #32DB64;
+				font-size: 80px;
+			}
+		}
+	}
+}

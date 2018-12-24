@@ -1,0 +1,61 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Husky Mobile</ion-title>
+		<ion-buttons end>
+			<button 
+				class="next-step" 
+				[disabled]="!shoppingCart.length"
+				(click)="nextStep()">
+				<ion-icon name="ios-arrow-forward"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar color="light">
+		<ion-title>Seleccione articulos</ion-title> 
+	</ion-toolbar>
+
+	<table [hidden]="!shoppingCart.length">
+		<thead>
+			<tr>
+				<th>Cant.</th>
+				<th>Articulo</th>
+				<th>Total</th>
+				<th>#</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr 
+				*ngFor="let product of shoppingCart; let i = index;" 
+				(click)="addProductDialog(product)">
+				<td>{{ product.CANT_PED }}</td>
+				<td>{{ product.DESART }}</td>
+				<td>{{ product.CANT_PED * getPriceByClient(product) | currency:'USD':true:'1.2-2' }}.-</td>
+				<td><ion-icon name="md-trash" (click)="removeFromCart($event, i)"></ion-icon></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="text-align:right; font-weight: bold;">Cant. prod:</td>
+			  	<td style="text-align:left; font-weight: bold;">{{ shoppingCart.length }}</td>
+			</tr>
+		  </tfoot>
+	</table>
+	<ion-refresher (ionRefresh)="syncProducts($event)">
+		<ion-refresher-content
+			pullingIcon="arrow-dropdown"
+			pullingText="Deslice hacia abajo para sincronizar."
+			refreshingSpinner="circles"
+			refreshingText="Sincronizando...">
+		</ion-refresher-content>
+	</ion-refresher>
+	<list-items
+		[itemsList]="products" 
+		(onSearch)="searchProducts($event)"
+		(onItemSelected)="addProductDialog($event)">
+	</list-items>   
+</ion-content>

@@ -1,0 +1,96 @@
+<ion-header>
+	<ion-navbar>    
+		<ion-title (click)="huskyVersion()">Husky Mobile</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-card class="main-options">
+		<ion-list>
+			<button ion-item color="primary" (click)="openClientsList()">
+				<ion-icon name="contacts" item-left></ion-icon>
+				Clientes
+			</button>
+
+			<button ion-item color="primary" (click)="openProductsList()">
+				<ion-icon name="folder-open" item-left></ion-icon>
+				Articulos
+			</button>
+
+			<button ion-item color="secondary" (click)="createOrder()">
+				<ion-icon name="cart" item-left></ion-icon>
+				¡Agregar Pedido!
+			</button>
+			<ion-toolbar color="light" [hidden]="!orders.length">
+				<ion-title>Mis Pedidos</ion-title>
+			</ion-toolbar>
+		</ion-list>
+	</ion-card>
+	<div [hidden]="!orders.length">
+		<ion-card 
+			class="order-card"
+			*ngFor="let order of orders; let i = index;">
+			<ion-toolbar class="header" color="light">
+				<ion-title>Pedido #{{ order.NPEDIDO }}</ion-title>
+			</ion-toolbar>
+			<ion-card-content>
+				<p><b>{{ order.client.NOMCLI }}</b></p>
+				<p>{{ getProductsString(order) }}.</p>
+				<p *ngIf="order.deliverDate"><b>Entrega</b> {{ order.deliverDate | date: 'dd/MM/yyyy' }}</p>
+			</ion-card-content>
+			<ion-row no-padding>
+				<ion-col class="order-actions">
+					<button ion-button clear small color="secondary" icon-left (click)="syncOrders([order])">
+						<ion-icon name='cloud-upload'></ion-icon>
+						Subir
+					</button>
+				</ion-col>
+				<ion-col class="order-actions" text-center>
+					<button 
+						ion-button 
+						clear 
+						small 
+						color="primary" 
+						icon-left
+						(click)="createOrder(order)">
+						<ion-icon name='create'></ion-icon>
+						Editar
+					</button>
+				</ion-col>
+				<ion-col class="order-actions" text-right>
+					<button 
+						ion-button 
+						clear 
+						small 
+						color="danger" 
+						icon-left
+						(click)="deleteOrder(false, i)">
+						<ion-icon name='trash'></ion-icon>
+						Borrar
+					</button>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+
+		
+	</div>
+
+	<div class="new-order-container" [hidden]="orders.length">
+		<ion-card>
+			<ion-card-content color="light">
+				<h2>Aun no hay pedidos cargados...</h2>
+				<p class="add-order" (click)="createOrder()">
+					<ion-icon name="ios-add-circle"></ion-icon>
+				</p>
+				<h1 (click)="createOrder()">¡Agregar nuevo pedido!</h1>
+			</ion-card-content>
+		</ion-card>
+	</div>
+</ion-content>
+
+<ion-footer [hidden]="!orders.length">
+	<ion-toolbar>
+		<button ion-button full color="secondary" (click)="syncOrders(orders)">SINCRONIZAR</button>
+		<button ion-button full color="danger" (click)="deleteOrder(true)">ELIMINAR</button>
+  	</ion-toolbar>
+</ion-footer>
